@@ -75,7 +75,7 @@ def main():
         st.session_state.state = State.GENERATE_CLICKED
         st.info('Generating new dilemma...click on the generate button again to view')
     
-    if state == State.GENERATE_CLICKED:
+    elif state == State.GENERATE_CLICKED:
         # Show generated dilemma
         dilemma = generate_dilemma()
         st.success('Dilemma Generated Successfully!')

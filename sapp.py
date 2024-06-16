@@ -68,6 +68,12 @@ def main():
 
     # Manage app state
     state = st.session_state.get("state", State.INITIAL)
+
+        if state == State.INITIAL:
+        # Generate Dilemma Button
+        if st.button('Generate Dilemma'):
+            st.session_state.state = State.GENERATE_CLICKED
+            st.info('Generating new dilemma...click on the generate button again to view')
     
     if state == State.GENERATE_CLICKED:
         # Show generated dilemma

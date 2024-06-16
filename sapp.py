@@ -20,7 +20,7 @@ def generate_dilemma():
         "ethical dilemmas that are short, easy to understand, and engaging.\n"
         "user: Generate a unique ethical dilemma for an Ethical Dilemma Simulator. "
         "It should ask all sorts of dilemma questions. "
-        "The dilemma should be very brief, clear, and engaging. It should present a challenging decision "
+        "The dilemma should be brief, clear, and engaging. It should present a challenging decision "
         "that involves making the user ponder about what they should do, make them creative, abstract, and interesting. "
         "Ensure the scenario is understandable to a wide audience.\n"
         "assistant: "
@@ -45,7 +45,7 @@ def provide_perspectives(decision, dilemma):
         "Dilemma: {dilemma}\n"
         "assistant: Let's delve into the decision you made, exploring its implications and potential outcomes.\n"
         "Tell me the possible future consequences of my choice. "
-        "Your analysis should be fun and very brief to read."
+        "Your analysis should be fun and brief to read."
     )
 
     prompt = perspectives_template.format(decision=decision, dilemma=dilemma)
@@ -74,6 +74,7 @@ def main():
             st.session_state.state = State.SUBMIT_DECISION
             st.info('Generating new dilemma...')
             dilemma = generate_dilemma()
+            st.session_state.dilemma = dilemma  # Store dilemma in session state
             st.success('Dilemma Generated Successfully!')
             st.markdown(f'### Dilemma\n{dilemma}')
     elif state == State.SUBMIT_DECISION:

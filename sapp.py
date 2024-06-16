@@ -21,6 +21,7 @@ def generate_dilemma():
         "ethical dilemmas that are short, easy to understand, and engaging.\n"
         "user: Generate a unique ethical dilemma for an Ethical Dilemma Simulator. "
         "It should ask all sorts of dilemma questions. "
+        "Dont ask repetitive questions"
         "The dilemma should be very brief, clear, and engaging. It should present a challenging decision "
         "that involves making the user ponder about what they should do, make them creative, abstract, and interesting. "
         "Ensure the scenario is understandable to a wide audience.\n"

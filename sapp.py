@@ -9,13 +9,18 @@ os.environ['GOOGLE_API_KEY'] = 'AIzaSyAbbeWBoz1AGahr_p5TMsjfgLAS2YZl270'
 # Initialize the model
 model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 
+# Define states to manage user interaction
+class State:
+    GENERATE = "generate"
+    SUBMIT_DECISION = "submit_decision"
+
 def generate_dilemma():
     prompt_template = (
         "system: You are an AI specialized in generating compelling and thought-provoking "
         "ethical dilemmas that are short, easy to understand, and engaging.\n"
         "user: Generate a unique ethical dilemma for an Ethical Dilemma Simulator. "
         "It should ask all sorts of dilemma questions. "
-        "The dilemma should be brief, clear, and engaging. It should present a challenging decision "
+        "The dilemma should be very brief, clear, and engaging. It should present a challenging decision "
         "that involves making the user ponder about what they should do, make them creative, abstract, and interesting. "
         "Ensure the scenario is understandable to a wide audience.\n"
         "assistant: "
@@ -40,7 +45,7 @@ def provide_perspectives(decision, dilemma):
         "Dilemma: {dilemma}\n"
         "assistant: Let's delve into the decision you made, exploring its implications and potential outcomes.\n"
         "Tell me the possible future consequences of my choice. "
-        "Your analysis should be fun and brief to read."
+        "Your analysis should be fun and very brief to read."
     )
 
     prompt = perspectives_template.format(decision=decision, dilemma=dilemma)
@@ -60,18 +65,24 @@ def provide_perspectives(decision, dilemma):
 def main():
     st.title('AI Ethical Dilemma Simulator')
 
-    # Generate Dilemma Button
-    if st.button('Generate Dilemma'):
-        st.info('Generating new dilemma...')
-        dilemma = generate_dilemma()
-        st.success('Dilemma Generated Successfully!')
-        st.markdown(f'### Dilemma\n{dilemma}')
-        
+    # Manage app state
+    state = st.session_state.get("state", State.GENERATE)
+
+    if state == State.GENERATE:
+        # Generate Dilemma Button
+        if st.button('Generate Dilemma'):
+            st.session_state.state = State.SUBMIT_DECISION
+            st.info('Generating new dilemma...')
+            dilemma = generate_dilemma()
+            st.success('Dilemma Generated Successfully!')
+            st.markdown(f'### Dilemma\n{dilemma}')
+    elif state == State.SUBMIT_DECISION:
         # Decision Form
         decision = st.text_area('Your Decision', '')
         if st.button('Submit Decision'):
+            st.session_state.state = State.SUBMIT_DECISION
             st.info('Analyzing perspectives...')
-            perspectives = provide_perspectives(decision, dilemma)
+            perspectives = provide_perspectives(decision, st.session_state.dilemma)
             st.success('Perspectives Analyzed Successfully!')
             st.markdown(f'### Perspectives\n{perspectives}')
 

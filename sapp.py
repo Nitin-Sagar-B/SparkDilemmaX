@@ -65,7 +65,7 @@ def provide_perspectives(decision, dilemma):
     return perspectives
 
 def main():
-    st.title('AI Ethical Dilemma Simulator')
+    st.title('Ethical Predicament Simulator')
 
     # Manage app state
     state = st.session_state.get("state", State.INITIAL)
@@ -83,7 +83,7 @@ def main():
         st.markdown(f'### Dilemma\n{dilemma}')
 
         # Decision Form
-        decision = st.text_area('Your Decision', '')
+        decision = st.text_area('Your Decision, please be elaborate to get better anaysis:', '')
         if st.button('Submit Decision'):
             st.session_state.state = State.SUBMIT_DECISION
             st.info('Analyzing perspectives...')

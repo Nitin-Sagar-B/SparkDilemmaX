@@ -11,7 +11,8 @@ model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 
 # Define states to manage user interaction
 class State:
-    GENERATE = "generate"
+    INITIAL = "initial"
+    GENERATE_CLICKED = "generate_clicked"
     SUBMIT_DECISION = "submit_decision"
 
 def generate_dilemma():
@@ -66,24 +67,26 @@ def main():
     st.title('AI Ethical Dilemma Simulator')
 
     # Manage app state
-    state = st.session_state.get("state", State.GENERATE)
+    state = st.session_state.get("state", State.INITIAL)
 
-    if state == State.GENERATE:
+    if state == State.INITIAL:
         # Generate Dilemma Button
         if st.button('Generate Dilemma'):
-            st.session_state.state = State.SUBMIT_DECISION
+            st.session_state.state = State.GENERATE_CLICKED
             st.info('Generating new dilemma...')
-            dilemma = generate_dilemma()
-            st.session_state.dilemma = dilemma  # Store dilemma in session state
-            st.success('Dilemma Generated Successfully!')
-            st.markdown(f'### Dilemma\n{dilemma}')
-    elif state == State.SUBMIT_DECISION:
+    
+    elif state == State.GENERATE_CLICKED:
+        # Show generated dilemma
+        dilemma = generate_dilemma()
+        st.success('Dilemma Generated Successfully!')
+        st.markdown(f'### Dilemma\n{dilemma}')
+
         # Decision Form
         decision = st.text_area('Your Decision', '')
         if st.button('Submit Decision'):
             st.session_state.state = State.SUBMIT_DECISION
             st.info('Analyzing perspectives...')
-            perspectives = provide_perspectives(decision, st.session_state.dilemma)
+            perspectives = provide_perspectives(decision, dilemma)
             st.success('Perspectives Analyzed Successfully!')
             st.markdown(f'### Perspectives\n{perspectives}')
 

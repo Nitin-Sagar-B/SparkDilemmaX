@@ -68,14 +68,8 @@ def main():
 
     # Manage app state
     state = st.session_state.get("state", State.INITIAL)
-
-    if state == State.INITIAL:
-        # Generate Dilemma Button
-        if st.button('Generate Dilemma'):
-            st.session_state.state = State.GENERATE_CLICKED
-            st.info('Generating new dilemma...')
     
-    elif state == State.GENERATE_CLICKED:
+    if state == State.GENERATE_CLICKED:
         # Show generated dilemma
         dilemma = generate_dilemma()
         st.success('Dilemma Generated Successfully!')
@@ -89,6 +83,8 @@ def main():
             perspectives = provide_perspectives(decision, dilemma)
             st.success('Perspectives Analyzed Successfully!')
             st.markdown(f'### Perspectives\n{perspectives}')
+            st.info('Scroll up to view the newly generated dilemma.')
+
 
 if __name__ == '__main__':
     main()

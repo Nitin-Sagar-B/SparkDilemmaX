@@ -3,7 +3,7 @@ An Ethical Dilemma Simulator, my first Gen AI app powered by Gemini API
 
 # Ethical Dilemma Simulator 🤔💡
 
-![Simulator Preview](https://your-image-url.com)
+![Simulator Preview](https://ethical-delulu-simulator.streamlit.app/#ai-ethical-dilemma-simulator)
 
 Welcome to the Ethical Dilemma Simulator, where thought-provoking scenarios meet AI-driven analysis!
 

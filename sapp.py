@@ -1,13 +1,7 @@
 import streamlit as st
 from langchain_core.messages import HumanMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
-
-# Set the Google API key as an environment variable
 import os
-os.environ['GOOGLE_API_KEY'] = 'AIzaSyDvlM0509T-QnYFyckAj9pQsIOTxk-kwaQ'
-
-# Initialize the model
-model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 
 # Define states to manage user interaction
 class State:
@@ -15,7 +9,7 @@ class State:
     GENERATE_CLICKED = "generate_clicked"
     SUBMIT_DECISION = "submit_decision"
 
-def generate_dilemma():
+def generate_dilemma(model):
     prompt_template = (
         "system: You are an AI specialized in generating compelling and thought-provoking "
         "ethical dilemmas that are short, easy to understand, and engaging.\n"
@@ -40,7 +34,7 @@ def generate_dilemma():
     
     return dilemma
 
-def provide_perspectives(decision, dilemma):
+def provide_perspectives(model, decision, dilemma):
     perspectives_template = (
         "system: Welcome! I'm here to analyze your decision from multiple ethical perspectives.\n"
         "user: Decision: {decision}\n"
@@ -67,31 +61,42 @@ def provide_perspectives(decision, dilemma):
 def main():
     st.title('Ethical Predicament Simulator')
 
-    # Manage app state
-    state = st.session_state.get("state", State.INITIAL)
-
-    if state == State.INITIAL:
-        # Generate Dilemma Button
-        if st.button('Generate Dilemma'):
-            st.session_state.state = State.GENERATE_CLICKED
-            st.info('Generating new dilemma...click on the generate button again to view')
+    # User input for API key
+    api_key = st.text_input("Enter your Google API Key", type="password")
     
-    elif state == State.GENERATE_CLICKED:
-        # Show generated dilemma
-        dilemma = generate_dilemma()
-        st.success('Dilemma Generated Successfully!')
-        st.markdown(f'### Dilemma\n{dilemma}')
+    if api_key:
+        # Set the Google API key as an environment variable
+        os.environ['GOOGLE_API_KEY'] = api_key
 
-        # Decision Form
-        decision = st.text_area('Your Decision, please be elaborate to get better anaysis:', '')
-        if st.button('Submit Decision'):
-            st.session_state.state = State.SUBMIT_DECISION
-            st.info('Analyzing perspectives...')
-            perspectives = provide_perspectives(decision, dilemma)
-            st.success('Perspectives Analyzed Successfully!')
-            st.markdown(f'### Perspectives\n{perspectives}')
-            st.info('Scroll up to view the newly generated dilemma.')
+        # Initialize the model
+        model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 
+        # Manage app state
+        state = st.session_state.get("state", State.INITIAL)
+
+        if state == State.INITIAL:
+            # Generate Dilemma Button
+            if st.button('Generate Dilemma'):
+                st.session_state.state = State.GENERATE_CLICKED
+                st.info('Generating new dilemma...click on the generate button again to view')
+        
+        elif state == State.GENERATE_CLICKED:
+            # Show generated dilemma
+            dilemma = generate_dilemma(model)
+            st.success('Dilemma Generated Successfully!')
+            st.markdown(f'### Dilemma\n{dilemma}')
+
+            # Decision Form
+            decision = st.text_area('Your Decision, please be elaborate to get better analysis:', '')
+            if st.button('Submit Decision'):
+                st.session_state.state = State.SUBMIT_DECISION
+                st.info('Analyzing perspectives...')
+                perspectives = provide_perspectives(model, decision, dilemma)
+                st.success('Perspectives Analyzed Successfully!')
+                st.markdown(f'### Perspectives\n{perspectives}')
+                st.info('Scroll up to view the newly generated dilemma.')
+    else:
+        st.warning("Please enter your Google API Key to proceed.")
 
 if __name__ == '__main__':
     main()

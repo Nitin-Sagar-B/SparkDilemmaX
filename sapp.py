@@ -4,7 +4,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 # Set the Google API key as an environment variable
 import os
-os.environ['GOOGLE_API_KEY'] = 'AIzaSyAbbeWBoz1AGahr_p5TMsjfgLAS2YZl270'
+os.environ['GOOGLE_API_KEY'] = 'AIzaSyDvlM0509T-QnYFyckAj9pQsIOTxk-kwaQ'
 
 # Initialize the model
 model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")

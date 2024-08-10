@@ -63,7 +63,8 @@ def provide_perspectives(model, decision, dilemma):
     return perspectives
 
 def main():
-    st.title('Ethical Predicament Simulator')
+    st.title('SparkDilemmaX')
+    st.header('The Ethical Predicament Simulator')
 
     # User input for API key
     api_key = st.text_input("Enter your Google API Key", type="password")

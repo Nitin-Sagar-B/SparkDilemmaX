@@ -51,5 +51,6 @@ Welcome to the Ethical Dilemma Simulator, where thought-provoking scenarios meet
 
 ## Join the Discussion:
 🌐 Join my LinkedIn to discuss ethical dilemmas, AI technologies, and more!
+💬 Discord Community: (Join here for discussions)[https://discord.gg/HKscyfKb]
 
 ---

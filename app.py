@@ -19,7 +19,7 @@ def generate_dilemma(model):
         "ethical dilemmas that are short, easy to understand, and engaging.\n"
         "user: Generate a unique ethical dilemma for an Ethical Dilemma Simulator. "
         "It should ask all sorts of dilemma questions. "
-        "Dont ask repetitive questions"
+        "Dont ask repetitive questions, make sure each dilemma is not same themed/ similar to the previous dilemma you generate"
         "The dilemma should be very brief, clear, and engaging. It should present a challenging decision "
         "that involves making the user ponder about what they should do, make them creative, abstract, and interesting. "
         "Ensure the scenario is understandable to a wide audience.\n"
@@ -73,7 +73,7 @@ def main():
         os.environ['GOOGLE_API_KEY'] = api_key
 
         # Initialize the model
-        model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
+        model = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
 
         # Manage app state
         state = st.session_state.get("state", State.INITIAL)

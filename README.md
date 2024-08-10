@@ -1,7 +1,7 @@
 An Ethical Dilemma Simulator, my first Gen AI app powered by Gemini API
 ---
 
-# Ethical Dilemma Simulator 🤔💡
+# SparkDilemma 🤔💡
 
 🎮 [Simulator Preview](https://sparkdilemma.streamlit.app/)
 

@@ -3,6 +3,10 @@ from langchain_core.messages import HumanMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 import os
 
+# Load custom CSS for styling
+with open("style.css") as css:
+    st.markdown(f'<style>{css.read()}</style>', unsafe_allow_html=True)
+
 # Define states to manage user interaction
 class State:
     INITIAL = "initial"

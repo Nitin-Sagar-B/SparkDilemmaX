@@ -50,7 +50,7 @@ Welcome to the Ethical Dilemma Simulator, where thought-provoking scenarios meet
 📣 **Spread the Word:** Share this project with friends and colleagues who are interested in ethics, AI, or decision-making!
 
 ## Join the Discussion:
-🌐 Join my LinkedIn to discuss ethical dilemmas, AI technologies, and more!
+🌐 Join my LinkedIn to discuss ethical dilemmas, AI technologies, and more! <br>
 💬 Discord Community: (Join here for discussions)[https://discord.gg/HKscyfKb]
 
 ---
